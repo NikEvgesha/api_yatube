@@ -1,10 +1,12 @@
+from api.permissions import IsAuthor
+from api.serializers import CommentSerializer, GroupSerializer, PostSerializer
 from django.shortcuts import get_object_or_404
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 
-from posts.models import Post, Group, Comment
 from api.serializers import PostSerializer, GroupSerializer, CommentSerializer
 from api.permissions import IsAuthor
+from posts.models import Post, Group
 
 
 class PostViewSet(viewsets.ModelViewSet):
@@ -31,7 +33,7 @@ class CommentViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         post = self.get_post()
-        return Comment.objects.filter(post=post)
+        return post.comments.all()
 
     def perform_create(self, serializer):
         post = self.get_post()

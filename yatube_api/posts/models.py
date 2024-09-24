@@ -1,6 +1,9 @@
 from django.contrib.auth import get_user_model
 from django.db import models
 
+from posts.constants import TITLE_STR_LIMIT, TEXT_STR_LIMIT
+
+
 User = get_user_model()
 
 
@@ -18,7 +21,7 @@ class Group(models.Model):
     )
 
     def __str__(self):
-        return self.title[:20]
+        return self.title[:TITLE_STR_LIMIT]
 
 
 class Post(models.Model):
@@ -50,7 +53,7 @@ class Post(models.Model):
         default_related_name = 'posts'
 
     def __str__(self):
-        return self.text[:30]
+        return self.text[:TEXT_STR_LIMIT]
 
 
 class Comment(models.Model):
@@ -75,5 +78,5 @@ class Comment(models.Model):
         default_related_name = 'comments'
 
     def __str__(self):
-        return (f'{self.post.__str__()} ({self.author.username}): '
-                f'{self.text[:30]}')
+        return (f'{self.post} ({self.author.username}): '
+                f'{self.text[:TEXT_STR_LIMIT]}')

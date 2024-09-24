@@ -21,8 +21,13 @@ comment_router_v1.register(
 )
 
 
-urlpatterns = [
-    path('v1/api-token-auth/', views.obtain_auth_token),
-    path('v1/', include(router_v1.urls)),
-    path('v1/', include(comment_router_v1.urls))
+urlpatterns_v1 = [
+    path('api-token-auth/', views.obtain_auth_token),
+    path('', include(router_v1.urls)),
+    path('', include(comment_router_v1.urls))
 ]
+
+urlpatterns = [
+    path('v1/', include(urlpatterns_v1))
+]
+
