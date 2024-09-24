@@ -30,4 +30,3 @@ urlpatterns_v1 = [
 urlpatterns = [
     path('v1/', include(urlpatterns_v1))
 ]
-
